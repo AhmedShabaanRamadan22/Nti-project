@@ -29,8 +29,8 @@ spec:
   selector:
     app: frontend
   ports:
-  - protocol: TCP
-    port: 3000 # Frontend app port
+  - port: 3000
     targetPort: 3000
-    nodePort: 32000 # Port accessible on the cluster nodes
-  type: NodePort
+    protocol: TCP
+  type: LoadBalancer
+  loadBalancerIP:
