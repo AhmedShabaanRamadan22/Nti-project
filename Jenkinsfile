@@ -43,7 +43,7 @@ pipeline {
                     sh '''
                         kubectl apply -f k8s/front.yaml
                         kubectl apply -f k8s/backend.yaml
-                        kubectl apply -f k8s/mongo.yaml
+                        kubectl apply -f k8s/mongodebloyment.yaml
                         kubectl apply -f k8s/pvpvc.yaml
                     '''
                 }
