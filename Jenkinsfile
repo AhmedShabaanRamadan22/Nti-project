@@ -40,10 +40,10 @@ pipeline {
             steps {
                 echo "Deploying to eks cluster..."
                 sh '''
-                    kubectl apply -f k8s/frontend-deployment.yml
-                    kubectl apply -f k8s/backend-deployment.yml
-                    kubectl apply -f k8s/frontend-service.yml
-                    kubectl apply -f k8s/backend-service.yml
+                    kubectl apply -f k8s/frontend.yaml
+                    kubectl apply -f k8s/backend.yaml
+                    kubectl apply -f k8s/mongo.yaml
+                    kubectl apply -f k8s/pvpvc.yaml
                 '''
             }
         }
