@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS = credentials('docker credentials') // Your Docker Hub credentials
+        KUBECONFIG = credentials('eks') // Your Minikube kubeconfig
     }
 
     stages {
@@ -31,6 +32,18 @@ pipeline {
                     echo "Pushing Docker images..."
                     docker push ahmed862/frontend
                     docker push ahmed862/backend
+                '''
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo "Deploying to eks cluster..."
+                sh '''
+                    kubectl apply -f k8s/frontend-deployment.yml
+                    kubectl apply -f k8s/backend-deployment.yml
+                    kubectl apply -f k8s/frontend-service.yml
+                    kubectl apply -f k8s/backend-service.yml
                 '''
             }
         }
