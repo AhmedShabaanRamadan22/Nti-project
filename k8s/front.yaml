@@ -3,10 +3,10 @@ kind: Deployment
 metadata:
   name: frontend-deployment
 spec:
-  replicas: 1
+  replicas: 1  # You might want to scale this based on your requirements
   selector:
     matchLabels:
-      app: frontend
+      app: frontend  # Ensures this Deployment is linked to the correct Service
   template:
     metadata:
       labels:
@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ahmed862/frontend
+        image: ahmed862/frontend  # Ensure the image is available on Docker Hub
         ports:
         - containerPort: 3000
         env:
         - name: REACT_APP_API_URL
-          value: http://backend-service:3001/api
+          value: http://backend-service:3001/api  # Replace with the correct URL for your backend
 ---
 apiVersion: v1
 kind: Service
@@ -27,9 +27,9 @@ metadata:
   name: frontend-service
 spec:
   selector:
-    app: frontend
+    app: frontend  # Links the service to the frontend deployment
   ports:
   - port: 3000
     targetPort: 3000
     protocol: TCP
-  type: LoadBalancer
+  type: LoadBalancer  # This will create an external load balancer if running on cloud platforms
