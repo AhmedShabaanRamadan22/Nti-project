@@ -3,10 +3,20 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS = credentials('docker credentials') // Your Docker Hub credentials
-        KUBECONFIG = credentials('eks') // Use the secret credential ID
+        AWS_REGION = 'us-east-1'  // Set the region
+        CLUSTER_NAME = 'my-eks-cluster'  // Set your EKS cluster
     }
 
     stages {
+        stage('Configure Kubeconfig') {
+            steps {
+                script {
+                    // Make sure AWS CLI is installed and AWS credentials are configured
+                    sh "aws eks --region ${AWS_REGION} update-kubeconfig --name ${CLUSTER_NAME}"
+                }
+            }
+        }  // Close the 'Configure Kubeconfig' stage
+
         stage('DockerHub Login') {
             steps {
                 script {
@@ -16,6 +26,7 @@ pipeline {
                 }
             }
         }
+
         stage('Build Docker Images') {
             steps {
                 sh '''
