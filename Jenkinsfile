@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS = credentials('docker credentials') // Your Docker Hub credentials
+        KUBECONFIG = credentials('eks') // Use the secret credential ID
     }
 
     stages {
