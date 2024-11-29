@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS = credentials('docker credentials') // Your Docker Hub credentials
-        KUBECONFIG = credentials('eks') // Your Minikube kubeconfig
     }
 
     stages {
@@ -39,12 +38,15 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo "Deploying to eks cluster..."
-                sh '''
-                    kubectl apply -f k8s/frontend.yaml
-                    kubectl apply -f k8s/backend.yaml
-                    kubectl apply -f k8s/mongo.yaml
-                    kubectl apply -f k8s/pvpvc.yaml
-                '''
+                // Use the kubeconfig stored as a Jenkins credential
+                withCredentials([file(credentialsId: 'eks', variable: 'KUBECONFIG')]) {
+                    sh '''
+                        kubectl apply -f k8s/frontend.yaml
+                        kubectl apply -f k8s/backend.yaml
+                        kubectl apply -f k8s/mongo.yaml
+                        kubectl apply -f k8s/pvpvc.yaml
+                    '''
+                }
             }
         }
     }
