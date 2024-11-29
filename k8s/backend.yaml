@@ -3,36 +3,37 @@ kind: Deployment
 metadata:
   name: backend-deployment
   labels:
-    app: backend
+    app: backend  # Labels are correctly defined
 spec:
-  replicas: 1
+  replicas: 1  # Adjust replicas based on scaling needs
   selector:
     matchLabels:
-      app: backend
+      app: backend  # Matches the app label in the Deployment template
   template:
     metadata:
       labels:
-        app: backend
+        app: backend  # Ensures that the pods are correctly labeled for the selector
     spec:
       containers:
       - name: backend
-        image: ahmed862/backend
+        image: ahmed862/backend  # Docker image from Docker Hub
         ports:
-        - containerPort: 3001
+        - containerPort: 3001  # Exposing port 3001 for the backend service
         env:
         - name: MONGO_URL
-          value: mongodb://mongo:27017/todos
+          value: mongodb://mongo:27017/todos  # MongoDB connection URL; adjust if needed
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
   labels:
-    app: backend
+    app: backend  # Labels are correct for service to target the backend pods
 spec:
   selector:
-    app: backend
+    app: backend  # Ensures service links to the right pods based on labels
   ports:
-  - port: 3001
+  - port: 3001  # Exposed port on the service
+    targetPort: 3001  # Maps to containerPort in the deployment
     protocol: TCP
-  type: clusterIP
+  type: ClusterIP  # Default service type, only accessible within the cluster
