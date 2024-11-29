@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_CREDENTIALS = credentials('docker-credentials')  // Docker Hub credentials
+        DOCKER_CREDENTIALS = credentials('docker credentials')  // Docker Hub credentials
         AWS_REGION = 'us-east-1'  // AWS region
         CLUSTER_NAME = 'my-eks-cluster'  // EKS cluster name
     }
