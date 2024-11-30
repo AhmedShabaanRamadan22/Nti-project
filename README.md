@@ -1,5 +1,5 @@
 # Project Overview
-This project demonstrates a comprehensive DevOps pipeline with a focus on automation, containerization, and orchestration using cutting-edge tools and technologies. Below are the key components and their contributions:
+This project delivers a comprehensive framework for automating Continuous Integration and Continuous Deployment (CI/CD) pipelines using Jenkins seamlessly integrated with Amazon Elastic Kubernetes Service (EKS). It aims to simplify application deployment, foster team collaboration, and boost overall productivity.
 
 # 1. Terraform: Infrastructure as Code (IaC)
 .Provision an EKS Cluster with two nodes, an Auto Scaling Group, and an Elastic Load Balancer (ELB).
